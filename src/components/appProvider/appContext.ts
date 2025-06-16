@@ -9,6 +9,7 @@ interface IAppContext {
 }
 
 export const initialState: IAppState = {
+  inputBuffer: '',
   operand1: undefined,
   operand2: undefined,
   operator: undefined,

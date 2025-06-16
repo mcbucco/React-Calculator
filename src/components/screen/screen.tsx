@@ -9,7 +9,6 @@ const Screen = ({ value }: IScreenProps) => (
   <Row justify={"center"}>
     <Col span={4}>
       <Input
-        maxLength={6}
         className="screen"
         disabled
         size="large"

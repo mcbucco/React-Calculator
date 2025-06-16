@@ -29,6 +29,7 @@ export type TAction<Type extends string, Payload = never> = [Payload] extends [n
   : {type: Type, payload: Payload}
 
 export interface IAppState {
+  inputBuffer: string,
   operand1: number | undefined;
   operand2: number | undefined;
   operator: TMathBasicBinaryOperators | undefined;

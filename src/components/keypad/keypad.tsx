@@ -17,9 +17,9 @@ const Keypad = () => {
     MATH_BASICS_UNARY.some((unary) => unary === operator);
 
   const handleKeypadClick = (
-    value: TMathBasicOperators | number | "CE" | "="
+    value: TMathBasicOperators | number | "CE" | "=" | '.'
   ) =>
-    typeof value === "number"
+    typeof value === "number" || value === '.'
       ? dispatch({ type: "NUM_CLICKED", payload: value })
       : value === "CE"
       ? dispatch({ type: "RESET" })
@@ -110,12 +110,12 @@ const Keypad = () => {
       </Row>
 
       <Row justify={"center"}>
-        <Col span={3}>
+        <Col span={2}>
           <KeypadButton<number> value={0} onClick={handleKeypadClick} />
         </Col>
-        {/* <Col span={1}>
+        <Col span={1}>
           <KeypadButton<'.'> value='.' onClick={handleKeypadClick} />
-        </Col> */}
+        </Col>
         <Col span={1}>
           <KeypadButton<TMathBasicBinaryOperators>
             value="/"

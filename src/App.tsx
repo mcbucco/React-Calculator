@@ -13,7 +13,7 @@ function App() {
     ? operand2
     : operand1
       ? operand1
-      : 0;
+      : 0
 
   return (
     <>

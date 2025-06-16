@@ -9,7 +9,7 @@ import {
 import { initialState } from "../appProvider/appContext";
 
 export type TCalcActions =
-  | TAction<"NUM_CLICKED", number>
+  | TAction<"NUM_CLICKED", number | '.'>
   | TAction<"UNARY_OPERATOR_CLICKED", TMathBasicUnaryOperators>
   | TAction<"BINARY_OPERATOR_CLICKED", TMathBasicBinaryOperators>
   | TAction<"CALC">
@@ -22,6 +22,7 @@ export function reducer(state: IAppState, action: TCalcActions): IAppState {
         operand1: mathBinary[state.operator!](state.operand1!, state.operand2!),
         operand2: undefined,
         operator: undefined,
+        inputBuffer: ''
       };
     }
 
@@ -32,24 +33,20 @@ export function reducer(state: IAppState, action: TCalcActions): IAppState {
     }
 
     case "NUM_CLICKED": {
+      const bufferValue = state.inputBuffer + action.payload;
       if (!state.operator) {
         return {
           ...state,
-          operand1: state.operand1
-            ? parseFloat(
-                state.operand1.toString().concat(action.payload.toString())
-              )
-            : parseFloat("".toString().concat(action.payload.toString())),
-        };
-      } else
+          operand1: parseFloat(bufferValue),
+          inputBuffer: bufferValue
+        }
+      } else {
         return {
           ...state,
-          operand2: state.operand2
-            ? parseFloat(
-                state.operand2.toString().concat(action.payload.toString())
-              )
-            : parseInt("".toString().concat(action.payload.toString())),
-        };
+          operand2: parseFloat(bufferValue),
+          inputBuffer: bufferValue
+        }
+      }
     }
 
     case "BINARY_OPERATOR_CLICKED": {
@@ -58,11 +55,13 @@ export function reducer(state: IAppState, action: TCalcActions): IAppState {
           operand1: mathBinary[state.operator!](state.operand1, state.operand2),
           operand2: undefined,
           operator: action.payload,
+          inputBuffer: '',
         };
       } else
         return {
           ...state,
           operator: action.payload,
+          inputBuffer: ''
         };
     }
 

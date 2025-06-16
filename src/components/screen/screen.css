@@ -1,0 +1,9 @@
+.screen {
+  text-align: center;
+  font-size: x-large;
+}
+
+.screen:disabled {
+  color: #000;
+  background-color: #fff;
+}
